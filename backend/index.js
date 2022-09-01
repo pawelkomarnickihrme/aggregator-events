@@ -4,11 +4,12 @@ const { Text, Checkbox, Password } = require('@keystonejs/fields');
 const { GraphQLApp } = require('@keystonejs/app-graphql');
 const { AdminUIApp } = require('@keystonejs/app-admin-ui');
 const initialiseData = require('./initial-data');
+const EventSchema = require('./events/Event')
 const dotenv = require('dotenv').config();
 
 const { KnexAdapter: Adapter } = require('@keystonejs/adapter-knex');
 const PROJECT_NAME = 'evencior';
-const adapterConfig = { knexOptions: { connection: process.env.POSTGRES_URL } };
+const adapterConfig = { knexOptions: { connection: process.env.POSTGRES_URL },dropDatabase:true };
 
 const keystone = new Keystone({
   adapter: new Adapter(adapterConfig),
@@ -36,7 +37,7 @@ const userIsAdminOrOwner = (auth) => {
 };
 
 const access = { userIsAdmin, userOwnsItem, userIsAdminOrOwner };
-
+keystone.createList('Event',EventSchema)
 keystone.createList('User', {
   fields: {
     name: { type: Text },
