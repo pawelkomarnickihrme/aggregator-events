@@ -58,29 +58,29 @@ export const lists: Lists = {
       // we want a user to have many posts, and we are saying that the user
       // should be referencable by the 'author' field of posts.
       // Make sure you read the docs to understand how they work: https://keystonejs.com/docs/guides/relationships#understanding-relationships
-      posts: relationship({ ref: 'Post.author', many: true }),
+      events: relationship({ ref: 'Event.author', many: true }),
     },
     // Here we can configure the Admin UI. We want to show a user's name and posts in the Admin UI
     ui: {
       listView: {
-        initialColumns: ['name', 'posts'],
+        initialColumns: ['name', 'events'],
       },
     },
   }),
   // Our second list is the Posts list. We've got a few more fields here
   // so we have all the info we need for displaying posts.
-  Post: list({
+  Event: list({
     fields: {
       title: text(),
       // Having the status here will make it easy for us to choose whether to display
       // posts on a live site.
       status: select({
         options: [
-          { label: 'Published', value: 'published' },
-          { label: 'Draft', value: 'draft' },
+          { label: 'Current', value: 'current' },
+          { label: 'Archive', value: 'archive' },
         ],
         // We want to make sure new posts start off as a draft when they are created
-        defaultValue: 'draft',
+        defaultValue: 'current',
         // fields also have the ability to configure their appearance in the Admin UI
         ui: {
           displayMode: 'segmented-control',
@@ -101,11 +101,11 @@ export const lists: Lists = {
         links: true,
         dividers: true,
       }),
-      publishDate: timestamp(),
+      startDate: timestamp(),
       // Here is the link from post => author.
       // We've configured its UI display quite a lot to make the experience of editing posts better.
       author: relationship({
-        ref: 'User.posts',
+        ref: 'User.events',
         ui: {
           displayMode: 'cards',
           cardFields: ['name', 'email'],
@@ -116,7 +116,7 @@ export const lists: Lists = {
       }),
       // We also link posts to tags. This is a many <=> many linking.
       tags: relationship({
-        ref: 'Tag.posts',
+        ref: 'Tag.events',
         ui: {
           displayMode: 'cards',
           cardFields: ['name'],
@@ -136,7 +136,7 @@ export const lists: Lists = {
     },
     fields: {
       name: text(),
-      posts: relationship({ ref: 'Post.tags', many: true }),
+      events: relationship({ ref: 'Event.tags', many: true }),
     },
   }),
 };

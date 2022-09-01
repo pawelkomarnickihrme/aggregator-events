@@ -6,13 +6,13 @@ type User {
   name: String
   email: String
   password: PasswordState
-  posts(
-    where: PostWhereInput! = {}
-    orderBy: [PostOrderByInput!]! = []
+  events(
+    where: EventWhereInput! = {}
+    orderBy: [EventOrderByInput!]! = []
     take: Int
     skip: Int! = 0
-  ): [Post!]
-  postsCount(where: PostWhereInput! = {}): Int
+  ): [Event!]
+  eventsCount(where: EventWhereInput! = {}): Int
 }
 
 type PasswordState {
@@ -31,7 +31,7 @@ input UserWhereInput {
   id: IDFilter
   name: StringFilter
   email: StringFilter
-  posts: PostManyRelationFilter
+  events: EventManyRelationFilter
 }
 
 input IDFilter {
@@ -79,10 +79,10 @@ input NestedStringFilter {
   not: NestedStringFilter
 }
 
-input PostManyRelationFilter {
-  every: PostWhereInput
-  some: PostWhereInput
-  none: PostWhereInput
+input EventManyRelationFilter {
+  every: EventWhereInput
+  some: EventWhereInput
+  none: EventWhereInput
 }
 
 input UserOrderByInput {
@@ -100,14 +100,14 @@ input UserUpdateInput {
   name: String
   email: String
   password: String
-  posts: PostRelateToManyForUpdateInput
+  events: EventRelateToManyForUpdateInput
 }
 
-input PostRelateToManyForUpdateInput {
-  disconnect: [PostWhereUniqueInput!]
-  set: [PostWhereUniqueInput!]
-  create: [PostCreateInput!]
-  connect: [PostWhereUniqueInput!]
+input EventRelateToManyForUpdateInput {
+  disconnect: [EventWhereUniqueInput!]
+  set: [EventWhereUniqueInput!]
+  create: [EventCreateInput!]
+  connect: [EventWhereUniqueInput!]
 }
 
 input UserUpdateArgs {
@@ -119,20 +119,20 @@ input UserCreateInput {
   name: String
   email: String
   password: String
-  posts: PostRelateToManyForCreateInput
+  events: EventRelateToManyForCreateInput
 }
 
-input PostRelateToManyForCreateInput {
-  create: [PostCreateInput!]
-  connect: [PostWhereUniqueInput!]
+input EventRelateToManyForCreateInput {
+  create: [EventCreateInput!]
+  connect: [EventWhereUniqueInput!]
 }
 
-type Post {
+type Event {
   id: ID!
   title: String
   status: String
-  content: Post_content_Document
-  publishDate: DateTime
+  content: Event_content_Document
+  startDate: DateTime
   author: User
   tags(
     where: TagWhereInput! = {}
@@ -143,25 +143,25 @@ type Post {
   tagsCount(where: TagWhereInput! = {}): Int
 }
 
-type Post_content_Document {
+type Event_content_Document {
   document(hydrateRelationships: Boolean! = false): JSON!
 }
 
 scalar DateTime
   @specifiedBy(url: "https://datatracker.ietf.org/doc/html/rfc3339#section-5.6")
 
-input PostWhereUniqueInput {
+input EventWhereUniqueInput {
   id: ID
 }
 
-input PostWhereInput {
-  AND: [PostWhereInput!]
-  OR: [PostWhereInput!]
-  NOT: [PostWhereInput!]
+input EventWhereInput {
+  AND: [EventWhereInput!]
+  OR: [EventWhereInput!]
+  NOT: [EventWhereInput!]
   id: IDFilter
   title: StringFilter
   status: StringNullableFilter
-  publishDate: DateTimeNullableFilter
+  startDate: DateTimeNullableFilter
   author: UserWhereInput
   tags: TagManyRelationFilter
 }
@@ -212,18 +212,18 @@ input TagManyRelationFilter {
   none: TagWhereInput
 }
 
-input PostOrderByInput {
+input EventOrderByInput {
   id: OrderDirection
   title: OrderDirection
   status: OrderDirection
-  publishDate: OrderDirection
+  startDate: OrderDirection
 }
 
-input PostUpdateInput {
+input EventUpdateInput {
   title: String
   status: String
   content: JSON
-  publishDate: DateTime
+  startDate: DateTime
   author: UserRelateToOneForUpdateInput
   tags: TagRelateToManyForUpdateInput
 }
@@ -241,16 +241,16 @@ input TagRelateToManyForUpdateInput {
   connect: [TagWhereUniqueInput!]
 }
 
-input PostUpdateArgs {
-  where: PostWhereUniqueInput!
-  data: PostUpdateInput!
+input EventUpdateArgs {
+  where: EventWhereUniqueInput!
+  data: EventUpdateInput!
 }
 
-input PostCreateInput {
+input EventCreateInput {
   title: String
   status: String
   content: JSON
-  publishDate: DateTime
+  startDate: DateTime
   author: UserRelateToOneForCreateInput
   tags: TagRelateToManyForCreateInput
 }
@@ -268,13 +268,13 @@ input TagRelateToManyForCreateInput {
 type Tag {
   id: ID!
   name: String
-  posts(
-    where: PostWhereInput! = {}
-    orderBy: [PostOrderByInput!]! = []
+  events(
+    where: EventWhereInput! = {}
+    orderBy: [EventOrderByInput!]! = []
     take: Int
     skip: Int! = 0
-  ): [Post!]
-  postsCount(where: PostWhereInput! = {}): Int
+  ): [Event!]
+  eventsCount(where: EventWhereInput! = {}): Int
 }
 
 input TagWhereUniqueInput {
@@ -287,7 +287,7 @@ input TagWhereInput {
   NOT: [TagWhereInput!]
   id: IDFilter
   name: StringFilter
-  posts: PostManyRelationFilter
+  events: EventManyRelationFilter
 }
 
 input TagOrderByInput {
@@ -297,7 +297,7 @@ input TagOrderByInput {
 
 input TagUpdateInput {
   name: String
-  posts: PostRelateToManyForUpdateInput
+  events: EventRelateToManyForUpdateInput
 }
 
 input TagUpdateArgs {
@@ -307,7 +307,7 @@ input TagUpdateArgs {
 
 input TagCreateInput {
   name: String
-  posts: PostRelateToManyForCreateInput
+  events: EventRelateToManyForCreateInput
 }
 
 """
@@ -325,12 +325,12 @@ type Mutation {
   updateUsers(data: [UserUpdateArgs!]!): [User]
   deleteUser(where: UserWhereUniqueInput!): User
   deleteUsers(where: [UserWhereUniqueInput!]!): [User]
-  createPost(data: PostCreateInput!): Post
-  createPosts(data: [PostCreateInput!]!): [Post]
-  updatePost(where: PostWhereUniqueInput!, data: PostUpdateInput!): Post
-  updatePosts(data: [PostUpdateArgs!]!): [Post]
-  deletePost(where: PostWhereUniqueInput!): Post
-  deletePosts(where: [PostWhereUniqueInput!]!): [Post]
+  createEvent(data: EventCreateInput!): Event
+  createEvents(data: [EventCreateInput!]!): [Event]
+  updateEvent(where: EventWhereUniqueInput!, data: EventUpdateInput!): Event
+  updateEvents(data: [EventUpdateArgs!]!): [Event]
+  deleteEvent(where: EventWhereUniqueInput!): Event
+  deleteEvents(where: [EventWhereUniqueInput!]!): [Event]
   createTag(data: TagCreateInput!): Tag
   createTags(data: [TagCreateInput!]!): [Tag]
   updateTag(where: TagWhereUniqueInput!, data: TagUpdateInput!): Tag
@@ -375,14 +375,14 @@ type Query {
   ): [User!]
   user(where: UserWhereUniqueInput!): User
   usersCount(where: UserWhereInput! = {}): Int
-  posts(
-    where: PostWhereInput! = {}
-    orderBy: [PostOrderByInput!]! = []
+  events(
+    where: EventWhereInput! = {}
+    orderBy: [EventOrderByInput!]! = []
     take: Int
     skip: Int! = 0
-  ): [Post!]
-  post(where: PostWhereUniqueInput!): Post
-  postsCount(where: PostWhereInput! = {}): Int
+  ): [Event!]
+  event(where: EventWhereUniqueInput!): Event
+  eventsCount(where: EventWhereInput! = {}): Int
   tags(
     where: TagWhereInput! = {}
     orderBy: [TagOrderByInput!]! = []
