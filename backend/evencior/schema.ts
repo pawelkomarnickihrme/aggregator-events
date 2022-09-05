@@ -16,7 +16,6 @@ A field: The individual bits of data on your list, each with its own type.
 // for putting in our config so we get useful errors. With typescript,
 // we get these even before code runs.
 import { list } from '@keystone-6/core';
-import { cloudinaryImage } from '@keystone-6/cloudinary';
 
 // We're using some common fields in the starter. Check out https://keystonejs.com/docs/apis/fields#fields-api
 // for the full list of fields.
@@ -26,6 +25,8 @@ import {
   password,
   timestamp,
   select,
+  image,
+  integer,
 } from '@keystone-6/core/fields';
 // The document field is a more complicated field, so it's in its own package
 // Keystone aims to have all the base field types, but you can make your own
@@ -47,7 +48,7 @@ export const lists: Lists = {
     // Here are the fields that `User` will have. We want an email and password so they can log in
     // a name so we can refer to them, and a way to connect users to posts.
     fields: {
-      name: text({ validation: { isRequired: true } }),
+      name: text({ validation: { isRequired: true },isIndexed: 'unique', }),
       email: text({
         validation: { isRequired: true },
         isIndexed: 'unique',
@@ -103,6 +104,10 @@ export const lists: Lists = {
         dividers: true,
       }),
       startDate: timestamp(),
+      localization: text(),
+      drinks:integer({
+        defaultValue: 0}),
+      photo:image({ storage: 'my_s3_files' }),
       // Here is the link from post => author.
       // We've configured its UI display quite a lot to make the experience of editing posts better.
       author: relationship({

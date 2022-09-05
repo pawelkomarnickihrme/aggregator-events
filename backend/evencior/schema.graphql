@@ -21,6 +21,7 @@ type PasswordState {
 
 input UserWhereUniqueInput {
   id: ID
+  name: String
   email: String
 }
 
@@ -133,6 +134,9 @@ type Event {
   status: String
   content: Event_content_Document
   startDate: DateTime
+  localization: String
+  drinks: Int
+  photo: ImageFieldOutput
   author: User
   tags(
     where: TagWhereInput! = {}
@@ -150,6 +154,22 @@ type Event_content_Document {
 scalar DateTime
   @specifiedBy(url: "https://datatracker.ietf.org/doc/html/rfc3339#section-5.6")
 
+type ImageFieldOutput {
+  id: ID!
+  filesize: Int!
+  width: Int!
+  height: Int!
+  extension: ImageExtension!
+  url: String!
+}
+
+enum ImageExtension {
+  jpg
+  png
+  webp
+  gif
+}
+
 input EventWhereUniqueInput {
   id: ID
 }
@@ -162,6 +182,8 @@ input EventWhereInput {
   title: StringFilter
   status: StringNullableFilter
   startDate: DateTimeNullableFilter
+  localization: StringFilter
+  drinks: IntNullableFilter
   author: UserWhereInput
   tags: TagManyRelationFilter
 }
@@ -206,6 +228,17 @@ input DateTimeNullableFilter {
   not: DateTimeNullableFilter
 }
 
+input IntNullableFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: IntNullableFilter
+}
+
 input TagManyRelationFilter {
   every: TagWhereInput
   some: TagWhereInput
@@ -217,6 +250,8 @@ input EventOrderByInput {
   title: OrderDirection
   status: OrderDirection
   startDate: OrderDirection
+  localization: OrderDirection
+  drinks: OrderDirection
 }
 
 input EventUpdateInput {
@@ -224,9 +259,21 @@ input EventUpdateInput {
   status: String
   content: JSON
   startDate: DateTime
+  localization: String
+  drinks: Int
+  photo: ImageFieldInput
   author: UserRelateToOneForUpdateInput
   tags: TagRelateToManyForUpdateInput
 }
+
+input ImageFieldInput {
+  upload: Upload!
+}
+
+"""
+The `Upload` scalar type represents a file upload.
+"""
+scalar Upload
 
 input UserRelateToOneForUpdateInput {
   create: UserCreateInput
@@ -251,6 +298,9 @@ input EventCreateInput {
   status: String
   content: JSON
   startDate: DateTime
+  localization: String
+  drinks: Int
+  photo: ImageFieldInput
   author: UserRelateToOneForCreateInput
   tags: TagRelateToManyForCreateInput
 }
@@ -339,7 +389,7 @@ type Mutation {
   deleteTags(where: [TagWhereUniqueInput!]!): [Tag]
   endSession: Boolean!
   authenticateUserWithPassword(
-    email: String!
+    name: String!
     password: String!
   ): UserAuthenticationWithPasswordResult
   createInitialUser(

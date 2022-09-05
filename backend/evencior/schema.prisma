@@ -14,21 +14,28 @@ generator client {
 
 model User {
   id       String  @id @default(cuid())
-  name     String  @default("")
+  name     String  @unique @default("")
   email    String  @unique @default("")
   password String
   events   Event[] @relation("Event_author")
 }
 
 model Event {
-  id        String    @id @default(cuid())
-  title     String    @default("")
-  status    String?   @default("current")
-  content   Json      @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
-  startDate DateTime?
-  author    User?     @relation("Event_author", fields: [authorId], references: [id])
-  authorId  String?   @map("author")
-  tags      Tag[]     @relation("Event_tags")
+  id              String    @id @default(cuid())
+  title           String    @default("")
+  status          String?   @default("current")
+  content         Json      @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+  startDate       DateTime?
+  localization    String    @default("")
+  drinks          Int?      @default(0)
+  photo_filesize  Int?
+  photo_extension String?
+  photo_width     Int?
+  photo_height    Int?
+  photo_id        String?
+  author          User?     @relation("Event_author", fields: [authorId], references: [id])
+  authorId        String?   @map("author")
+  tags            Tag[]     @relation("Event_tags")
 
   @@index([authorId])
 }
