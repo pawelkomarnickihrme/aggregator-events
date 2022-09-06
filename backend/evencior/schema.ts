@@ -107,6 +107,7 @@ export const lists: Lists = {
       localization: text(),
       drinks:integer({
         defaultValue: 0}),
+      side: text(),
       photo:image({ storage: 'my_s3_files' }),
       // Here is the link from post => author.
       // We've configured its UI display quite a lot to make the experience of editing posts better.

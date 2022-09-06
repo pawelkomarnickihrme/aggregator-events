@@ -28,6 +28,7 @@ model Event {
   startDate       DateTime?
   localization    String    @default("")
   drinks          Int?      @default(0)
+  side            String    @default("")
   photo_filesize  Int?
   photo_extension String?
   photo_width     Int?

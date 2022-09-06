@@ -136,6 +136,7 @@ type Event {
   startDate: DateTime
   localization: String
   drinks: Int
+  side: String
   photo: ImageFieldOutput
   author: User
   tags(
@@ -184,6 +185,7 @@ input EventWhereInput {
   startDate: DateTimeNullableFilter
   localization: StringFilter
   drinks: IntNullableFilter
+  side: StringFilter
   author: UserWhereInput
   tags: TagManyRelationFilter
 }
@@ -252,6 +254,7 @@ input EventOrderByInput {
   startDate: OrderDirection
   localization: OrderDirection
   drinks: OrderDirection
+  side: OrderDirection
 }
 
 input EventUpdateInput {
@@ -261,6 +264,7 @@ input EventUpdateInput {
   startDate: DateTime
   localization: String
   drinks: Int
+  side: String
   photo: ImageFieldInput
   author: UserRelateToOneForUpdateInput
   tags: TagRelateToManyForUpdateInput
@@ -300,6 +304,7 @@ input EventCreateInput {
   startDate: DateTime
   localization: String
   drinks: Int
+  side: String
   photo: ImageFieldInput
   author: UserRelateToOneForCreateInput
   tags: TagRelateToManyForCreateInput
