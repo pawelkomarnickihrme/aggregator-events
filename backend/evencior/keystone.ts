@@ -27,6 +27,7 @@ export default withAuth(
       // For our starter, we check that someone has session data before letting them see the Admin UI.
       isAccessAllowed: (context) => !!context.session?.data,
     },
+
     lists,
     session,
     storage: {
@@ -60,6 +61,18 @@ export default withAuth(
         secretAccessKey : process.env.S3_SECRET_ACCESS_KEY,
         // The S3 links will be signed so they remain private
         signed: { expiry: 5000 },
+      },
+    },
+    server: {
+      cors: { origin: ['http://localhost:3001'], credentials: true },
+    },
+    graphql: {
+      debug: process.env.NODE_ENV !== 'production',
+      queryLimits: { maxTotalResults: 100 },
+      path: '/api/graphql',
+      apolloConfig: {
+        debug: true,
+        /* ... */
       },
     },
   })
