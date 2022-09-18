@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="30.549" height="30.549" viewBox="0 0 30.549 30.549">
+  <g id="Magnifier_lens_scale" data-name="Magnifier, lens, scale" transform="translate(-10 -10)">
+    <path id="Path_3" data-name="Path 3" d="M26.85,16.667A10.183,10.183,0,1,0,37.033,26.85,10.182,10.182,0,0,0,26.85,16.667Zm0,17.82a7.637,7.637,0,1,1,7.637-7.637A7.646,7.646,0,0,1,26.85,34.487Z" transform="translate(-4.121 -4.121)" fill="#cecece"/>
+    <path id="Path_4" data-name="Path 4" d="M35.091,32.546a2.547,2.547,0,0,0-2.546,2.546H30A5.1,5.1,0,0,1,35.091,30Z" transform="translate(-12.363 -12.363)" fill="#cecece"/>
+    <path id="Path_5" data-name="Path 5" d="M58.58,56.78l-1.8,1.8,8.337,8.34,1.8-1.8Z" transform="translate(-28.916 -28.916)" fill="#cecece"/>
+    <path id="Path_6" data-name="Path 6" d="M12.546,75.091V70H10v7.637h7.637V75.091Z" transform="translate(0 -37.088)" fill="#cecece"/>
+    <path id="Path_7" data-name="Path 7" d="M75.091,12.546v5.091h2.546V10H70v2.546Z" transform="translate(-37.088)" fill="#cecece"/>
+  </g>
+</svg>
