@@ -1,11 +1,10 @@
-@import url('https://fonts.googleapis.com/css?family=Poppins:400,300,700');
+@import url('https://fonts.googleapis.com/css?family=Poppins:300,700');
 
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: Poppins, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: Poppins;
   background-color: var(--silver);
 }
 
@@ -15,6 +14,25 @@ a {
 }
 input:focus {
   outline: none !important;
+}
+button{
+  font-family: Poppins;
+}
+input{
+  font-family: Poppins;
+
+}
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: var(--silver-sublimites);
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: var(--silver-sublimites);
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: var(--silver-sublimites);
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: var(--silver-sublimites);
 }
 
 * {
@@ -35,4 +53,5 @@ input:focus {
   --turquoise: #36ffc8;
   --dark-yellow: #fce181;
   --silver: #f6f6f6;
+  --silver-sublimites:#CBCBCB
 }

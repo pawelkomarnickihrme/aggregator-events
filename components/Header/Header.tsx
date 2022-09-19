@@ -3,7 +3,8 @@ import styles from './Header.module.css';
 import Image from 'next/image';
 import logo from '../../public/logo.png';
 import Search from './Search/Search';
-import Button from '../Button/Button';
+import LogIn from '../Button/LogIn';
+import AddButton from '../Button/AddButton';
 
 const Header: NextPage = () => {
   return (
@@ -17,8 +18,8 @@ const Header: NextPage = () => {
         </div>
         
         <div className={styles.buttons}>
-          <span className={styles.button}><Button>Zaloguj się</Button></span>
-          <span  className={styles.button}><Button>Dodaj</Button></span>
+          <span className={styles.button}><LogIn/></span>
+          <span className={styles.button}><AddButton/></span>
           
         </div>
       
