@@ -1,27 +1,32 @@
-import { ApolloClient, gql, useQuery,InMemoryCache } from '@apollo/client';
+import { ApolloClient, gql, useQuery, InMemoryCache } from '@apollo/client';
+import { useEffect, useState } from 'react';
 
 const client = new ApolloClient({
-    uri: 'http://localhost:3000/api/graphql',
-    cache: new InMemoryCache(),
-  });
+  uri: 'http://localhost:3000/api/graphql',
+  cache: new InMemoryCache(),
+});
 
-  const GET_EVENETS = gql`
-    query GerEvents{
-        events {
-            title
-            content {
-              document
-            }
-            startDate
-            localization
-          }
+export const GET_EVENETS = gql`
+  query GerEvents {
+    events {
+      title
+      localization
+      content {
+        document
+      }
+      startDate
+      drinks
+      photo {
+        url
+      }
+      id
+      side
     }
-`
+  }
+`;
 
-const Events = () =>{
-    const { loading, error, data } = useQuery(GET_EVENETS);
-    console.log(data,error)
-    return(<div></div>)
-}
+const useEventList = () => {
+  return useQuery(GET_EVENETS);
+};
 
-export default Events
+export default useEventList;
